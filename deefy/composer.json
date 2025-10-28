@@ -1,0 +1,12 @@
+{
+    "require": {
+        "monolog/monolog": "3.9.*"
+    },
+  "autoload": {
+        "psr-4": {
+            "Deefy\\": "classes/"
+        }
+    }
+}
+
+
