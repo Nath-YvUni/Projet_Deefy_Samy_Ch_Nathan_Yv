@@ -2,12 +2,29 @@
 // index.php
 session_start();
 
+require_once 'classes/BDD/Database.php';
 
-// Charger les données temporaires
-include("classes/data.php");
+use Deefy\BDD\Database;
+
+// On initialise la base avec le fichier .ini
+Database::setConfigFile(__DIR__ . '/ressources/acces/db.ini');
+$pdo = Database::getConnection();
 
 // Vérifier si l'utilisateur est connecté
 $estConnecte = isset($_SESSION['user']);
+
+// Récupérer les playlists
+$stmt = $pdo->query("
+    SELECT p.id, p.nom 
+    FROM playlist p
+    INNER JOIN user2playlist up ON p.id = up.id_pl
+    WHERE up.id_user = " . ($estConnecte ? (int)$_SESSION['user']['id'] : 0)
+);
+$playlists = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Récupérer les musiques
+$stmt2 = $pdo->query("SELECT * FROM track");
+$musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -27,7 +44,7 @@ $estConnecte = isset($_SESSION['user']);
         <li style="color: #666;">Aucune playlist pour le moment</li>
       <?php else: ?>
         <?php foreach ($playlists as $p): ?>
-          <li><?= htmlspecialchars($p['name']) ?></li>
+          <li><?= htmlspecialchars($p['nom']) ?></li>
         <?php endforeach; ?>
       <?php endif; ?>
     </ul>
