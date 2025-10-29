@@ -11,9 +11,6 @@ if(isset($_GET['id'])) {
     $playlistId = (int)$_GET['id'];
     // Récupérer les informations de la playlist
     $playlist = $utilManage->getPlaylistById($playlistId, $_SESSION['user']['id'], $_SESSION['user']['role']);
-    echo '<pre>';
-print_r($playlist);
-echo '</pre>';
     if(!$playlist) die("Playlist introuvable.");
     $_SESSION['user']['current_playlist'] = $playlist;
 
