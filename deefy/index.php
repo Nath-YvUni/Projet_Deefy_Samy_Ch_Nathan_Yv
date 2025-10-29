@@ -17,8 +17,6 @@ if($estConnecte) {
     $playlists = $utilManage->getPlaylists($_SESSION['user']['id'],$_SESSION['user']['role']);
 }
 
-
-
 // Récupérer les musiques
 $stmt2 = $pdo->query("SELECT * FROM track");
 $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
@@ -28,7 +26,7 @@ $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 <head>
   <meta charset="UTF-8">
   <title>Deefy</title>
-  <link rel="stylesheet" href="ressources/css/IndexStyle.css">
+  <link rel="stylesheet" href="ressources/css/IndexStyle.css?=v=1.0">
 </head>
 <body>
   <!-- Barre latérale -->
@@ -37,23 +35,34 @@ $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
     <button class="btn">+ Créer une playlist</button>
     <p>Vos playlists</p>
     <ul>
-      <ul>
-        <?php if (empty($playlists)): ?>
-            <li style="color: #666;">Aucune playlist pour le moment</li>
+    <?php if (empty($playlists)): ?>
+        <li style="color: #666;">Aucune playlist pour le moment</li>
+    <?php else: ?>
+        <?php if ($_SESSION['user']['role'] === 100): ?>
+            <strong>ADMIN - Toutes les playlists :</strong>
+            <?php foreach ($playlists as $p): ?>
+                <li>
+                    <a href="./Fonctionnalité/playlist.php?id=<?= $p['id'] ?>" class="playlist-link">
+                        <strong><?= htmlspecialchars($p['nom']) ?></strong><br>
+                        Utilisateur : <?= htmlspecialchars($p['username'] ?? 'Inconnu') ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
         <?php else: ?>
-            <?php if ($_SESSION['user']['role'] === 100): ?>
-                <li><strong>ADMIN - Toutes les playlists :</strong></li>
-                <?php foreach ($playlists as $p): ?>
-                    <li><?= htmlspecialchars($p['nom']) ?> <br> Utilisateur : <br> <?= htmlspecialchars($p['username'] ?? 'Utilisateur inconnu') ?></li>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <?php foreach ($playlists as $p): ?>
-                    <li><?= htmlspecialchars($p['nom']) ?></li>
-                <?php endforeach; ?>
-            <?php endif; ?>
+            <?php foreach ($playlists as $p): ?>
+                <li>
+                    <a href="./Fonctionnalité/playlist.php?id=<?= $p['id'] ?>" class="playlist-link">
+                        <?= htmlspecialchars($p['nom']) ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
         <?php endif; ?>
-      </ul>
-  </aside>
+    <?php endif; ?>
+</ul>
+
+</aside>
+
+
 
   <!-- Barre du haut -->
   <header class="topbar">

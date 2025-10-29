@@ -122,6 +122,18 @@ body {
   color: white;
 }
 
+.playlist-link {
+    display: block;       /* Le lien prend toute la largeur du li */
+    color: inherit;       /* Hérite la couleur du texte */
+    text-decoration: none;/* Supprime le soulignement */
+    padding: 5px 10px;    /* Optionnel : un peu de padding pour le confort */
+}
+
+.playlist-link:hover {
+    background-color: #eee; /* Survol visible */
+    cursor: pointer;
+}
+
 /* === CONTENU PRINCIPAL === */
 .content {
   margin-left: 240px; /* Espace pour la sidebar */
