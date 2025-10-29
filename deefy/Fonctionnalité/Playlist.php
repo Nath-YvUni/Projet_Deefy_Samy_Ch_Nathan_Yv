@@ -12,7 +12,7 @@ if(isset($_GET['id'])) {
 
     // Récupérer la playlist
     $stmt = $pdo->prepare("
-        SELECT p.id, p.nom, u.username
+        SELECT p.id, p.nom, u.username, p.image
         FROM playlist p
         LEFT JOIN user2playlist up ON p.id = up.id_pl
         LEFT JOIN user u ON up.id_user = u.id
