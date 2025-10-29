@@ -98,6 +98,17 @@ $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
   <!-- Contenu principal -->
   <main class="content">
+    <h1>Bienvenue sur Deefy</h1>
+    <h2>Dernière playlist écoutée</h2>
+    <div>
+      <?php if ($estConnecte && !empty($_SESSION['user']['current_playlist'])): ?>
+        <img src="<?= htmlspecialchars($_SESSION['user']['current_playlist']['image'] ?? 'ressources/images/playlist/defaut-playlist.png') ?>" alt="Cover Playlist" style="width:150px; height:150px;">
+        <p>Playlist : <?= htmlspecialchars($_SESSION['user']['current_playlist']['nom']) ?></p>
+        <p>Propriétaire : <?= htmlspecialchars($_SESSION['user']['current_playlist']['username'] ?? 'Inconnu') ?></p>
+      <?php else: ?>
+        <p>Aucune playlist écoutée récemment.</p>
+      <?php endif; ?>
+    </div>
     <h2>Musiques du jour</h2>
     <div class="tracks">
       <?php foreach ($musics as $m): ?>
