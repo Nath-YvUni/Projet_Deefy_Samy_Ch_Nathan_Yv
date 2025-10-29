@@ -1,5 +1,5 @@
 <?php
-// classes/Auth/AuthProvider.php
+// classes/Authentificateur/Auth.php
 
 namespace Deefy\Authentificateur;
 

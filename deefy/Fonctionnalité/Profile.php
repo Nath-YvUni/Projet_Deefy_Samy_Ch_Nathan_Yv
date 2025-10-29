@@ -1,5 +1,4 @@
 <?php
-// includes/profile.php
 
 session_start();
 
