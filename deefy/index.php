@@ -4,18 +4,20 @@ session_start();
 
 // Inclure l'init pour récupérer $pdo
 require_once 'classes/init.php';
+require_once 'classes/Utilisateur/UtilManage.php';
+
+use Deefy\Utilisateur\UtilManage;
 
 // Vérifier si l'utilisateur est connecté
 $estConnecte = isset($_SESSION['user']);
 
-// Récupérer les playlists
-$stmt = $pdo->query("
-    SELECT p.id, p.nom 
-    FROM playlist p
-    INNER JOIN user2playlist up ON p.id = up.id_pl
-    WHERE up.id_user = " . ($estConnecte ? (int)$_SESSION['user']['id'] : 0)
-);
-$playlists = $stmt->fetchAll(PDO::FETCH_ASSOC);
+if($estConnecte) {
+    // Rafraîchir les données utilisateur depuis la base
+    $utilManage = new UtilManage($pdo);
+    $playlists = $utilManage->getPlaylists($_SESSION['user']['id'],$_SESSION['user']['role']);
+}
+
+
 
 // Récupérer les musiques
 $stmt2 = $pdo->query("SELECT * FROM track");
@@ -35,14 +37,22 @@ $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
     <button class="btn">+ Créer une playlist</button>
     <p>Vos playlists</p>
     <ul>
-      <?php if (empty($playlists)): ?>
-        <li style="color: #666;">Aucune playlist pour le moment</li>
-      <?php else: ?>
-        <?php foreach ($playlists as $p): ?>
-          <li><?= htmlspecialchars($p['nom']) ?></li>
-        <?php endforeach; ?>
-      <?php endif; ?>
-    </ul>
+      <ul>
+        <?php if (empty($playlists)): ?>
+            <li style="color: #666;">Aucune playlist pour le moment</li>
+        <?php else: ?>
+            <?php if ($_SESSION['user']['role'] === 100): ?>
+                <li><strong>ADMIN - Toutes les playlists :</strong></li>
+                <?php foreach ($playlists as $p): ?>
+                    <li><?= htmlspecialchars($p['nom']) ?> <br> Utilisateur : <br> <?= htmlspecialchars($p['username'] ?? 'Utilisateur inconnu') ?></li>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <?php foreach ($playlists as $p): ?>
+                    <li><?= htmlspecialchars($p['nom']) ?></li>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        <?php endif; ?>
+      </ul>
   </aside>
 
   <!-- Barre du haut -->

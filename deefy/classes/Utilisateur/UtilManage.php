@@ -66,4 +66,32 @@ class UtilManage
         $stmt = $this->pdo->prepare("UPDATE user SET avatar = :avatar WHERE email = :email");
         return $stmt->execute(['avatar' => $avatarPath, 'email' => $email]);
     }
+
+    function getPlaylists(int $idUser, int $role) {
+    if ($role === 100) {
+        // ADMIN → récupère toutes les playlists triées par utilisateur
+        $sql = "
+        SELECT p.id, p.nom, u.username
+        FROM playlist p
+        LEFT JOIN user2playlist up ON p.id = up.id_pl
+        LEFT JOIN user u ON up.id_user = u.id
+        ORDER BY u.username ASC, p.nom ASC";
+        
+        $stmt = $this->pdo->query($sql);
+    } else {
+        // USER → récupère seulement ses playlists
+        $sql = "
+        SELECT p.id, p.nom
+        FROM playlist p
+        INNER JOIN user2playlist up ON p.id = up.id_pl
+        WHERE up.id_user = :idUser
+        ORDER BY p.nom ASC";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['idUser' => $idUser]);
+    }
+
+    return $stmt->fetchAll();
+}
+
 }
