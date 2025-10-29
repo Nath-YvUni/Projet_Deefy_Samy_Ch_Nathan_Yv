@@ -66,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <title>Connexion / Inscription — Deefy</title>
   <link rel="stylesheet" href="../ressources/css/LogSigStyle.css?v=1">
 </head>
