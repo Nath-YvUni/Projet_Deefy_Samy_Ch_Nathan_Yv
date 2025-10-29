@@ -17,6 +17,7 @@ if($estConnecte) {
     $playlists = $utilManage->getPlaylists($_SESSION['user']['id'],$_SESSION['user']['role']);
 }
 
+
 // Récupérer les musiques
 $stmt2 = $pdo->query("SELECT * FROM track");
 $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
@@ -103,8 +104,8 @@ $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
       <?php foreach ($musics as $m): ?>
         <div class="track">
           <img src="<?= $m['cover'] ?>" alt="cover">
-          <div class="title"><?= htmlspecialchars($m['title']) ?></div>
-          <div class="artist"><?= htmlspecialchars($m['artist']) ?></div>
+          <div class="title"><?= htmlspecialchars($m['titre']) ?></div>
+          <div class="artist"><?= htmlspecialchars($m['artiste_album']) ?></div>
           <button>▶ Lecture</button>
         </div>
       <?php endforeach; ?>
