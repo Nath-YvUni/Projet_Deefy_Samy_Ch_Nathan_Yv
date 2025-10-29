@@ -71,7 +71,7 @@ class UtilManage
     if ($role === 100) {
         // ADMIN → récupère toutes les playlists triées par utilisateur
         $sql = "
-        SELECT p.id, p.nom, u.username
+        SELECT p.id, p.nom, u.username, p.image
         FROM playlist p
         LEFT JOIN user2playlist up ON p.id = up.id_pl
         LEFT JOIN user u ON up.id_user = u.id
@@ -81,7 +81,7 @@ class UtilManage
     } else {
         // USER → récupère seulement ses playlists
         $sql = "
-        SELECT p.id, p.nom
+        SELECT p.id, p.nom, p.image
         FROM playlist p
         INNER JOIN user2playlist up ON p.id = up.id_pl
         WHERE up.id_user = :idUser
@@ -93,5 +93,35 @@ class UtilManage
 
     return $stmt->fetchAll();
 }
+
+    public function getPlaylistById(int $playlistId, int $idUser, int $role) {
+    if ($role === 100) {
+        // ADMIN → toutes les playlists
+        $sql = "
+            SELECT p.id, p.nom, u.username, p.image
+            FROM playlist p
+            INNER JOIN user2playlist up ON p.id = up.id_pl
+            INNER JOIN user u ON up.id_user = u.id
+            WHERE p.id = :playlistId
+        ";
+    
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['playlistId' => $playlistId]);
+    } else {
+        // USER → seulement ses playlists
+        $sql = "
+            SELECT p.id, p.nom, p.image, u.username
+            FROM playlist p
+            INNER JOIN user2playlist up ON p.id = up.id_pl
+            INNER JOIN user u ON up.id_user = u.id
+            WHERE up.id_user = :idUser AND p.id = :playlistId
+        ";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['idUser' => $idUser, 'playlistId' => $playlistId]);
+    }
+
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 
 }
