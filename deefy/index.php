@@ -63,8 +63,9 @@ $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                     </a>
                     <!-- Bouton Lecture à côté, hors du lien -->
             <form action="./Fonctionnalite/musique.php" method="get" style="margin:0;">
-                <button type="submit" style="background:none; border:none; cursor:pointer; font-size:16px; color:white;">▶</button>
-            </form>
+                  <input type="hidden" name="playlist_id" value="<?= $p['id'] ?>">
+                  <button type="submit" style="background:none; border:none; cursor:pointer; font-size:16px; color:white;">▶</button>
+              </form>
                 </li>
             <?php endforeach; ?>
         <?php endif; ?>
