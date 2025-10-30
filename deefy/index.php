@@ -27,7 +27,7 @@ $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 <head>
   <meta charset="UTF-8">
   <title>Deefy</title>
-  <link rel="stylesheet" href="ressources/css/IndexStyle.css?=v=1.0">
+  <link rel="stylesheet" href="ressources/css/IndexStyle.css">
 </head>
 <body>
   <!-- Barre latérale -->
@@ -43,18 +43,28 @@ $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
             <strong>ADMIN - Toutes les playlists :</strong>
             <?php foreach ($playlists as $p): ?>
                 <li>
-                    <a href="./Fonctionnalité/playlist.php?id=<?= $p['id'] ?>" class="playlist-link">
+                    <a href="./Fonctionnalite/playlist.php?id=<?= $p['id'] ?>" class="playlist-link">
                         <strong><?= htmlspecialchars($p['nom']) ?></strong><br>
                         Utilisateur : <?= htmlspecialchars($p['username'] ?? 'Inconnu') ?>
                     </a>
+                    <!-- Bouton Lecture à côté, hors du lien -->
+            <form action="./Fonctionnalite/musique.php" method="get" style="margin:0;">
+                  <input type="hidden" name="playlist_id" value="<?= $p['id'] ?>">
+                  <button type="submit" style="background:none; border:none; cursor:pointer; font-size:16px; color:white;">▶</button>
+              </form>
+
                 </li>
             <?php endforeach; ?>
         <?php else: ?>
             <?php foreach ($playlists as $p): ?>
                 <li>
-                    <a href="./Fonctionnalité/playlist.php?id=<?= $p['id'] ?>" class="playlist-link">
+                    <a href="./Fonctionnalite/playlist.php?id=<?= $p['id'] ?>" class="playlist-link">
                         <?= htmlspecialchars($p['nom']) ?>
                     </a>
+                    <!-- Bouton Lecture à côté, hors du lien -->
+            <form action="./Fonctionnalite/musique.php" method="get" style="margin:0;">
+                <button type="submit" style="background:none; border:none; cursor:pointer; font-size:16px; color:white;">▶</button>
+            </form>
                 </li>
             <?php endforeach; ?>
         <?php endif; ?>
@@ -87,13 +97,13 @@ $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
       <!-- MENU DÉROULANT -->
       <div class="dropdown-menu" id="dropdownMenu">
         <!-- TODO : Création d'une page profil et d'un lien vers une page pour ce login et s'inscrire mais qui peut aussi servir a se déco -->
-        <a href="Fonctionnalité/profile.php">Mon profil</a>
+        <a href="Fonctionnalite/profile.php">Mon profil</a>
         <hr>
-        <a href="Fonctionnalité/Log_Sig.php?action=logout" class="logout">Se déconnecter</a>
+        <a href="Fonctionnalite/Log_Sig.php?action=logout" class="logout">Se déconnecter</a>
       </div>
     </div>
     <?php else: ?>
-      <a href="Fonctionnalité/Log_Sig.php" class="login">Se connecter / S'inscrire</a>
+      <a href="Fonctionnalite/Log_Sig.php" class="login">Se connecter / S'inscrire</a>
     <?php endif; ?>
   </header>
 
@@ -122,23 +132,18 @@ $img = !empty($_SESSION['user']['current_playlist']['image'])
           <img src="<?= $m['cover'] ?>" alt="cover">
           <div class="title"><?= htmlspecialchars($m['titre']) ?></div>
           <div class="artist"><?= htmlspecialchars($m['artiste_album']) ?></div>
-          <button>▶ Lecture</button>
+          <form action="./Fonctionnalite/musique.php" method="get">
+            <input type="hidden" name="titre" value="<?= htmlspecialchars($m['titre']) ?>">
+            <input type="hidden" name="artiste" value="<?= htmlspecialchars($m['artiste_album']) ?>">
+            <input type="hidden" name="cover" value="<?= htmlspecialchars($m['cover']) ?>">
+            <input type="hidden" name="fichier" value="<?= htmlspecialchars($m['filename']) ?>">
+        <button type="submit">▶ Lecture</button>
+      </form>
         </div>
       <?php endforeach; ?>
     </div>
   </main>
 
-  <!-- Lecteur -->
-  <footer class="player">
-    <div class="song-info">
-      <p><strong>MUSIQUE</strong><br>Play et autre</p>
-    </div>
-    <div class="controls">
-      <button>⏮</button>
-      <button>⏯</button>
-      <button>⏭</button>
-    </div>
-  </footer>
 
   <script>
 const profileBtn = document.getElementById('profileBtn');
