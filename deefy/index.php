@@ -117,7 +117,7 @@ $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
       <?php
 $img = !empty($_SESSION['user']['current_playlist']['image'])
     ? $_SESSION['user']['current_playlist']['image']
-    : './ressources/images/playlist/defaut-playlist.png';
+    : './ressources/images/playlist/defautPlaylist.png';
 ?>
 <img src="<?= htmlspecialchars($img) ?>" alt="Cover Playlist" style="width:150px; height:150px;">
         <p>Playlist : <?= htmlspecialchars($_SESSION['user']['current_playlist']['nom']) ?></p>
