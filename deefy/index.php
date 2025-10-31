@@ -3,6 +3,7 @@
 session_start();
 
 // Inclure l'init pour récupérer $pdo
+include __DIR__ . "/Fonctionnalite/Player.php"; 
 require_once 'classes/init.php';
 require_once 'classes/Utilisateur/UtilManage.php';
 
