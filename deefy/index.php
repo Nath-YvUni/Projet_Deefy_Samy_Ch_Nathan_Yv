@@ -33,7 +33,7 @@ $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
   <!-- Barre latérale -->
   <aside class="sidebar">
     <h2>Bibliothèque</h2>
-    <button class="btn">+ Créer une playlist</button>
+    <button class="btn" onclick="window.location.href='Fonctionnalite/Ajout_Playlist.php'">+ Créer une playlist</button>
     <p>Vos playlists</p>
     <ul>
     <?php if (empty($playlists)): ?>
