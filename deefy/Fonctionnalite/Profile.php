@@ -50,10 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
             $uploadDir = __DIR__ . '/../ressources/images/avatars/';
             
-            // Créer le dossier s'il n'existe pas
-            if (!file_exists($uploadDir)) {
-                mkdir($uploadDir, 0777, true);
-            }
             
             // Générer un nom unique
             $newFilename = uniqid('avatar_') . '.' . $ext;

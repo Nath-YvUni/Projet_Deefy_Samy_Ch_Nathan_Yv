@@ -79,7 +79,7 @@ $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
   <!-- Barre du haut -->
   <header class="topbar">
     <div class="logo">
-      <img src="ressources/images/Deefy.png" alt="Logo Deefy">
+      <img src="ressources/images/Dee_fy.png" alt="Logo Deefy">
       <span>Deefy</span>
     </div>
 
