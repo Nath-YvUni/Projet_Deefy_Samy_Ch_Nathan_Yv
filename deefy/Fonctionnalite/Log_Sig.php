@@ -59,8 +59,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             throw new Exception("Action invalide.");
         }
     } catch (Exception $e) {
-        $flash = ['type' => 'error', 'msg' => $e->getMessage()];
-    }
+    $flash = ['type' => 'error', 'msg' => htmlspecialchars($e->getMessage())];
+}
 }
 ?>
 <!doctype html>
@@ -74,7 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="card">
 
   <?php if ($flash['type']): ?>
-    <div class="flash <?= $flash['type'] ?>"><?= htmlspecialchars($flash['msg']) ?></div>
+    <div class="flash <?= htmlspecialchars($flash['type']) ?>">
+    <?= htmlspecialchars($flash['msg']) ?>
+</div>
   <?php endif; ?>
 
   <h1>Inscription</h1>

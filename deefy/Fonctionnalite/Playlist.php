@@ -80,10 +80,18 @@ if(isset($_GET['id'])) {
     <div class="tracks-container">
         <?php foreach($searchResults as $t): ?>
             <div class="track-card">
-                <img src="<?= '../' . $t['cover'] ?>" alt="cover">
-                <h4><?= htmlspecialchars($t['titre']) ?></h4>
-                <p><?= htmlspecialchars($t['artiste_album']) ?></p>
-                <p><?= htmlspecialchars($t['genre']) ?></p>
+    <?php
+        $cover = $t['cover'];
+        if (preg_match('#\.\./#', $cover) || preg_match('#^(https?|ftp):#i', $cover)) {
+            $cover = 'ressources/images/default-cover.png';
+        }
+    ?>
+    <img src="<?= '../' . htmlspecialchars($cover) ?>" alt="cover">
+
+    <h4><?= htmlspecialchars($t['titre']) ?></h4>
+    <p><?= htmlspecialchars($t['artiste_album']) ?></p>
+    <p><?= htmlspecialchars($t['genre']) ?></p>
+
                 <?php if(in_array($t['id'], $trackDansPlaylist)): ?>
                 <!-- Si déjà dans la playlist -->
                 <div class="added-check">

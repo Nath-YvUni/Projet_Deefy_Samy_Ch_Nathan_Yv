@@ -86,11 +86,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <div class="confirmation-card">
-        <img src="<?= htmlspecialchars('../' . $track['cover'] ?? '../ressources/img/default_track.png') ?>" alt="<?= htmlspecialchars($track['titre']) ?>">
+        <?php
+        $coverPath = '../ressources/img/default_track.png';
+        if (!empty($track['cover'])) {
+            $coverPath = '../' . htmlspecialchars($track['cover']);
+        }
+        ?>
+        
+        <img src="<?= $coverPath ?>" 
+             alt="<?= htmlspecialchars($track['titre']) ?>"
+             onerror="this.src='../ressources/img/default_track.png'">
+        
         <h3>Vous venez d'ajouter cette piste !</h3>
-        <p><?= htmlspecialchars($track['titre']) ?> - <?= htmlspecialchars($track['artiste_album']) ?></p>
+        
+    
+        <p>
+            <?= htmlspecialchars($track['titre']) ?> 
+            - 
+            <?= htmlspecialchars($track['artiste_album']) ?>
+        </p>
+        
         <a href="../index.php">← Retour à l'accueil</a>
-        <a href="playlist.php?id=<?= $playlistId ?>">← Voir la playlist</a>
+        <a href="playlist.php?id=<?= htmlspecialchars($playlistId) ?>">← Voir la playlist</a>
     </div>
 </body>
 </html>

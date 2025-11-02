@@ -9,6 +9,16 @@ $artiste = $_GET['artiste'] ?? null;
 $cover = $_GET['cover'] ?? '../ressources/images/defaut-cover.png';
 $fichier = $_GET['fichier'] ?? null;
 
+// --- Sécurité fichiers et chemins ---
+if (preg_match('#\.\./#', $cover) || preg_match('#^(https?|ftp):#i', $cover)) {
+    $cover = '../ressources/images/defaut-cover.png';
+}
+
+if (preg_match('#\.\./#', $fichier) || preg_match('#^(https?|ftp):#i', $fichier)) {
+    $fichier = null;
+}
+
+
 // Si une playlist est passée, on récupère toutes ses musiques
 $tracks = [];
 if ($playlistId) {
@@ -314,21 +324,6 @@ function formatTime(seconds) {
 <div style="color: #ff4b4b; text-align: center; padding: 40px;">
     <p>Musique introuvable ou chemin invalide</p>
     <pre style="background: rgba(0,0,0,0.5); padding: 20px; border-radius: 10px; text-align: left; margin: 20px auto; max-width: 600px;">
-DEBUG INFO:
-- Playlist ID: <?= var_export($playlistId, true) ?>
-
-- Tracks trouvées: <?= count($tracks) ?>
-
-- Fichier: <?= htmlspecialchars($fichier ?? 'non défini') ?>
-
-- Music Exists: <?= var_export($musicExists, true) ?>
-
-<?php if (!empty($tracks)): ?>
-Première track:
-<?= print_r($tracks[0], true) ?>
-<?php endif; ?>
-    </pre>
-</div>
 <?php endif; ?>
 </body>
 </html>

@@ -6,7 +6,6 @@ require_once __DIR__ . '/../classes/Utilisateur/UtilManage.php';
 
 use Deefy\Utilisateur\UtilManage;
 
-// Vérifier si l'utilisateur est connecté
 if (!isset($_SESSION['user'])) {
     header('Location: ../Fonctionnalite/Log_Sig.php');
     exit;
@@ -15,7 +14,6 @@ if (!isset($_SESSION['user'])) {
 $message = '';
 $messageType = '';
 
-// === Création de playlist ===
 if (isset($_POST['creer'])) {
     $nom = trim($_POST['nom']);
     $image = "ressources/images/playlist/img_playlist.png"; // image par défaut
@@ -25,7 +23,6 @@ if (isset($_POST['creer'])) {
             throw new Exception("⚠️ Le nom de la playlist ne peut pas être vide.");
         }
 
-        // === Gestion de l'upload d'image ===
         if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
             $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
             $filename = $_FILES['image']['name'];
@@ -35,30 +32,32 @@ if (isset($_POST['creer'])) {
                 throw new Exception("Format d'image non autorisé. Utilisez JPG, PNG, GIF ou WEBP.");
             }
 
-            if ($_FILES['image']['size'] > 5000000) { // 5MB max
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $mimeType = finfo_file($finfo, $_FILES['image']['tmp_name']);
+            finfo_close($finfo);
+            
+            $allowedMimes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+            
+            if (!in_array($mimeType, $allowedMimes)) {
+                throw new Exception("Type de fichier non autorisé.");
+            }
+
+            if ($_FILES['image']['size'] > 5000000) { 
                 throw new Exception("L'image est trop volumineuse (max 5MB).");
             }
 
-            $uploadDir = __DIR__ . '../../ressources/images/playlist/';
+            $uploadDir = __DIR__ . '/../ressources/images/playlist/';
 
-            // Créer le dossier s'il n'existe pas
-            if (!is_dir($uploadDir)) {
-                mkdir($uploadDir, 0777, true);
-            }
-
-            // Nom unique
             $newFilename = uniqid('playlist_') . '.' . $ext;
             $destination = $uploadDir . $newFilename;
 
             if (move_uploaded_file($_FILES['image']['tmp_name'], $destination)) {
-                // Chemin relatif (pour stockage BD)
                 $image = 'ressources/images/playlist/' . $newFilename;
             } else {
                 throw new Exception("Erreur lors de l'upload de l'image.");
             }
         }
 
-        // === Insertion dans la base avec l'ID utilisateur ===
         $sql = "INSERT INTO playlist (nom, image) VALUES (:nom, :image)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
@@ -66,16 +65,15 @@ if (isset($_POST['creer'])) {
             'image' => $image
         ]);
 
+        $idNouvellePlaylist = $pdo->lastInsertId();
+
         $sql = "INSERT INTO user2playlist (id_user, id_pl) VALUES (:id_user, :id_pl)";
         $stmt = $pdo->prepare($sql);
         $stmt->execute([
             'id_user' => $_SESSION['user']['id'],
-            'id_pl' => $pdo->lastInsertId()
+            'id_pl' => $idNouvellePlaylist
         ]);
-
-        $idNouvellePlaylist = $pdo->lastInsertId();
         
-        // Mettre à jour la session avec la nouvelle playlist
         $utilManage = new UtilManage($pdo);
         $nouvellePlaylist = $utilManage->getPlaylistById(
             $idNouvellePlaylist, 
@@ -87,11 +85,10 @@ if (isset($_POST['creer'])) {
         $message = "✅ Playlist <strong>" . htmlspecialchars($nom) . "</strong> créée avec succès !";
         $messageType = 'success';
 
-        // Rediriger vers la page de la playlist après 2 secondes
         header("refresh:2;url=playlist.php?id=" . $idNouvellePlaylist);
 
     } catch (Exception $e) {
-        $message = $e->getMessage();
+        $message = htmlspecialchars($e->getMessage()); // ✅ PROTECTION XSS
         $messageType = 'error';
     }
 }
@@ -235,7 +232,7 @@ if (isset($_POST['creer'])) {
     <h1>🎶 Créer une nouvelle playlist</h1>
 
     <?php if (!empty($message)): ?>
-        <div class="message <?= $messageType ?>">
+        <div class="message <?= htmlspecialchars($messageType) ?>">
             <?= $message ?>
         </div>
     <?php endif; ?>
