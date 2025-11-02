@@ -10,22 +10,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $basename = '';
 
     if (isset($_FILES['audio']) && $_FILES['audio']['error'] === UPLOAD_ERR_OK) {
-        $audio_info = pathinfo($_FILES['audio']['name']);
-        $audio_ext = strtolower($audio_info['extension']);
-        if ($audio_ext === 'mp3') {
-            // Sécurisation du nom de base (pour cover, etc)
-            $basename = preg_replace('/[^a-zA-Z0-9_-]/', '_', $audio_info['filename']);
 
-            $audio_dir = __DIR__ . '/../ressources/audio/';
-            if (!is_dir($audio_dir)) mkdir($audio_dir, 0755, true);
-            $audio_name = $basename.'.mp3';
-            $audio_dest = $audio_dir . $audio_name;
-            if (move_uploaded_file($_FILES['audio']['tmp_name'], $audio_dest)) {
-                $filename = 'ressources/audio/' . $audio_name;
-                $audio_ok = true;
-            } else { $error = "Erreur lors de l'upload du mp3."; }
-        } else { $error = "Seuls les fichiers MP3 sont autorisés."; }
-    } else { $error = "Aucun fichier audio sélectionné."; }
+    $audio_info = pathinfo($_FILES['audio']['name']);
+    $audio_ext = strtolower($audio_info['extension']);
+
+    if ($audio_ext === 'mp3') {
+
+        // ✅ On utilise le nom du titre entré par l'utilisateur
+        $titre = $_POST['titre'] ?? 'SansTitre';
+
+        // Nettoyage pour éviter caractères interdits
+        $basename = preg_replace('/[^a-zA-Z0-9_-]/', '_', $titre);
+
+        $audio_dir = __DIR__ . '/../ressources/audio/';
+        if (!is_dir($audio_dir)) mkdir($audio_dir, 0755, true);
+
+        $audio_name = $basename . '.mp3';
+        $audio_dest = $audio_dir . $audio_name;
+
+        if (move_uploaded_file($_FILES['audio']['tmp_name'], $audio_dest)) {
+            $filename = 'ressources/audio/' . $audio_name;
+            $audio_ok = true;
+        } else {
+            $error = "Erreur lors de l'upload du mp3.";
+        }
+
+    } else {
+        $error = "Seuls les fichiers MP3 sont autorisés.";
+    }
+
+} else {
+    $error = "Aucun fichier audio sélectionné.";
+}
+
 
     $cover_path = 'ressources/images/piste/default_cover.png';
     if ($audio_ok && isset($_FILES['cover']) && $_FILES['cover']['error'] === UPLOAD_ERR_OK) {
