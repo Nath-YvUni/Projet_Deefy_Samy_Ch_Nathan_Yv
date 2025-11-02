@@ -7,8 +7,6 @@ require_once 'classes/init.php';
 require_once 'classes/Utilisateur/UtilManage.php';
 
 
-include __DIR__ . "/Fonctionnalite/Player.php"; 
-
 use Deefy\Utilisateur\UtilManage;
 
 // Vérifier si l'utilisateur est connecté
@@ -133,7 +131,13 @@ $img = !empty($_SESSION['user']['current_playlist']['image'])
     <div class="tracks">
       <?php foreach ($musics as $m): ?>
         <div class="track">
-          <img src="<?= htmlspecialchars($m['cover'] ?: 'ressources/images/defaut-cover.png') ?>" alt="cover">
+          <?php
+          $coverPath = !empty($m['cover']) && file_exists($m['cover'])
+              ? $m['cover']
+              : 'ressources/images/piste/defaut-cover.png';
+          ?>
+          <img src="<?= htmlspecialchars($coverPath) ?>" alt="cover">
+
           <div class="title"><?= htmlspecialchars($m['titre']) ?></div>
           <div class="artist"><?= htmlspecialchars($m['artiste_album']) ?></div>
           <form action="./Fonctionnalite/musique.php" method="get">
