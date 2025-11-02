@@ -34,6 +34,11 @@ $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
   <!-- Barre latérale -->
   <aside class="sidebar">
     <h2>Bibliothèque</h2>
+    <?php if ($estConnecte && ($_SESSION['user']['role'] == 2 || $_SESSION['user']['role'] == 100)): ?>
+    <button class="btn" style="background-color:#4CAF50;" onclick="window.location.href='Fonctionnalite/Ajout_Piste_Artiste.php'">
+      Ajouter une de vos Musique
+    </button>
+  <?php endif; ?>
     <button class="btn" onclick="window.location.href='Fonctionnalite/Ajout_Playlist.php'">+ Créer une playlist</button>
     <p>Vos playlists</p>
     <ul>
@@ -98,7 +103,6 @@ $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
       <!-- MENU DÉROULANT -->
       <div class="dropdown-menu" id="dropdownMenu">
-        <!-- TODO : Création d'une page profil et d'un lien vers une page pour ce login et s'inscrire mais qui peut aussi servir a se déco -->
         <a href="Fonctionnalite/profile.php">Mon profil</a>
         <hr>
         <a href="Fonctionnalite/Log_Sig.php?action=logout" class="logout">Se déconnecter</a>
