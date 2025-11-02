@@ -39,7 +39,7 @@ $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 <head>
   <meta charset="UTF-8">
   <title>Deefy</title>
-  <link rel="stylesheet" href="ressources/css/IndexStyle.css?v=1.0">
+  <link rel="stylesheet" href="ressources/css/IndexStyle.css">
 </head>
 <body>
   <!-- Barre latérale -->
@@ -65,9 +65,11 @@ $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
                         Utilisateur : <?= htmlspecialchars($p['username'] ?? 'Inconnu') ?>
                     </a>
                     <!-- Bouton Lecture à côté, hors du lien -->
-            <form action="./Fonctionnalite/musique.php" method="get" style="margin:0;">
-                  <input type="hidden" name="playlist_id" value="<?= $p['id'] ?>">
-                  <button type="submit" style="background:none; border:none; cursor:pointer; font-size:16px; color:white;">▶</button>
+            <form action="./Fonctionnalite/musique.php" method="get" class="btn-play-form">
+                <input type="hidden" name="playlist_id" value="<?= $p['id'] ?>">
+                <button type="submit" class="btn-play">▶</button>
+            </form>
+
               </form>
 
                 </li>

@@ -214,6 +214,32 @@ body {
   border-radius: 8px;
 }
 
+.btn-play-form {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+.btn-play {
+  background: #1db954;        /* Vert Spotify */
+  border: none;
+  padding: 8px 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  color: white;
+  transition: 0.2s ease;
+}
+
+.btn-play:hover {
+  background: #18a348;
+  transform: scale(1.08);
+}
+
+.btn-play:active {
+  transform: scale(0.95);
+}
+
+
 /* === LECTEUR === */
 .player {
   position: fixed;
