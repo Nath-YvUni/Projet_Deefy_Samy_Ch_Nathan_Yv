@@ -52,7 +52,7 @@ if(isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <title>Playlist - <?= htmlspecialchars($playlist['nom']) ?></title>
-    <link rel="stylesheet" href="../ressources/css/PlaylistStyle.css?v=1.0">
+    <link rel="stylesheet" href="../ressources/css/IndexPlaylistStyle.css">
 </head>
 <body>
     <h2>Playlist : <?= htmlspecialchars($playlist['nom']) ?></h2>

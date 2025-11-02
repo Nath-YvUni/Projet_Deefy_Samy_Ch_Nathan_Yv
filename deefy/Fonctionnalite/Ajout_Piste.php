@@ -40,54 +40,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>Piste ajoutée</title>
-    <link rel="stylesheet" href="../ressources/css/PlaylistStyle.css">
-    <style>
-        body { background-color: #121212; color: white; font-family: Arial, sans-serif; padding: 20px; }
-        .confirmation-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background-color: #181818;
-            border-radius: 8px;
-            padding: 20px;
-            width: 250px;
-            margin: 40px auto;
-            text-align: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.5);
-        }
-        .confirmation-card img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 6px;
-            margin-bottom: 10px;
-        }
-        .confirmation-card h3 {
-            color: #1db954;
-            margin-bottom: 5px;
-        }
-        .confirmation-card p {
-            color: #b3b3b3;
-            margin-bottom: 15px;
-        }
-        .confirmation-card a {
-            display: inline-block;
-            padding: 8px 16px;
-            background-color: #1db954;
-            color: white;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .confirmation-card a:hover {
-            background-color: #1ed760;
-        }
-    </style>
+    <link rel="stylesheet" href="../ressources/css/IndexPlaylistStyle.css">
 </head>
 <body>
     <div class="confirmation-card">
         <?php
-        $coverPath = '../ressources/img/default_track.png';
+        $coverPath = '../ressources/images/piste/default_cover.png';
         if (!empty($track['cover'])) {
             $coverPath = '../' . htmlspecialchars($track['cover']);
         }
@@ -95,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         <img src="<?= $coverPath ?>" 
              alt="<?= htmlspecialchars($track['titre']) ?>"
-             onerror="this.src='../ressources/img/default_track.png'">
+             onerror="this.src='../ressources/images/piste/default_cover.png">
         
         <h3>Vous venez d'ajouter cette piste !</h3>
         
