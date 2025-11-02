@@ -72,6 +72,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $user['avatar'] = $avatarPath;
                     $successMessage = "Photo de profil mise à jour avec succès !";
                 }
+                // supprimer l'ancien fichier si ce n'est pas l'avatar par défaut et qu'il existe
+        if (!empty($oldAvatar) && $oldAvatar !== 'ressources/images/defaut-avatar.png') {
+            $oldPath = __DIR__ . '/../' . $oldAvatar;
+            if (file_exists($oldPath)) {
+                @unlink($oldPath); // suppression silencieuse si échec
+            }
+        }
             } else {
                 throw new Exception("Erreur lors de l'upload de l'image.");
             }

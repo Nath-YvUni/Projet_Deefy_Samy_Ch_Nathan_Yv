@@ -3,15 +3,17 @@
 session_start();
 
 // Inclure l'init pour récupérer $pdo
-include __DIR__ . "/Fonctionnalite/Player.php"; 
 require_once 'classes/init.php';
 require_once 'classes/Utilisateur/UtilManage.php';
+
+
+include __DIR__ . "/Fonctionnalite/Player.php"; 
 
 use Deefy\Utilisateur\UtilManage;
 
 // Vérifier si l'utilisateur est connecté
 $estConnecte = isset($_SESSION['user']);
-
+$playlists = [];
 if($estConnecte) {
     // Rafraîchir les données utilisateur depuis la base
     $utilManage = new UtilManage($pdo);
@@ -131,7 +133,7 @@ $img = !empty($_SESSION['user']['current_playlist']['image'])
     <div class="tracks">
       <?php foreach ($musics as $m): ?>
         <div class="track">
-          <img src="<?= $m['cover'] ?>" alt="cover">
+          <img src="<?= htmlspecialchars($m['cover'] ?: 'ressources/images/defaut-cover.png') ?>" alt="cover">
           <div class="title"><?= htmlspecialchars($m['titre']) ?></div>
           <div class="artist"><?= htmlspecialchars($m['artiste_album']) ?></div>
           <form action="./Fonctionnalite/musique.php" method="get">
