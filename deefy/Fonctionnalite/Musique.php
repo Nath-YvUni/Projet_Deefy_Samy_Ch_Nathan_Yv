@@ -9,12 +9,11 @@ $artiste = $_GET['artiste'] ?? null;
 $cover = $_GET['cover'] ?? '../ressources/images/defaut-cover.png';
 $fichier = $_GET['fichier'] ?? null;
 
-// --- Sécurité fichiers et chemins ---
-if (preg_match('#\.\./#', $cover) || preg_match('#^(https?|ftp):#i', $cover)) {
+if ($cover && (preg_match('#\.\./#', $cover) || preg_match('#^(https?|ftp):#i', $cover))) {
     $cover = '../ressources/images/defaut-cover.png';
 }
 
-if (preg_match('#\.\./#', $fichier) || preg_match('#^(https?|ftp):#i', $fichier)) {
+if ($fichier && (preg_match('#\.\./#', $fichier) || preg_match('#^(https?|ftp):#i', $fichier))) {
     $fichier = null;
 }
 
@@ -320,6 +319,24 @@ function formatTime(seconds) {
     return mins + ':' + (secs < 10 ? '0' : '') + secs;
 }
 </script>
+<?php elseif ($playlistId && empty($tracks)): ?>
+<!-- ✅ CAS : Playlist vide -->
+<div class="player" style="padding: 60px 40px;">
+    <div style="font-size: 60px; margin-bottom: 20px;">🎵</div>
+    <h1 style="color: #1db954; margin-bottom: 15px;">Cette playlist est vide</h1>
+    <p style="color: #aaa; margin-bottom: 30px;">Ajoutez des pistes pour commencer à écouter !</p>
+    <a href="playlist.php?id=<?= htmlspecialchars($playlistId, ENT_QUOTES, 'UTF-8') ?>" 
+       style="display: inline-block; 
+              background: #1db954; 
+              color: white; 
+              padding: 15px 30px; 
+              border-radius: 30px; 
+              text-decoration: none; 
+              font-weight: bold;
+              transition: background 0.3s;">
+        ➕ Ajouter des pistes
+    </a>
+</div>
 <?php else: ?>
 <div style="color: #ff4b4b; text-align: center; padding: 40px;">
     <p>Musique introuvable ou chemin invalide</p>
