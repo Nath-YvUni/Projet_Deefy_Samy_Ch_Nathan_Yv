@@ -18,6 +18,17 @@ if($estConnecte) {
     $playlists = $utilManage->getPlaylists($_SESSION['user']['id'],$_SESSION['user']['role']);
 }
 
+// Recherche piste
+$searchResults = [];
+$rechercheActive = false;
+if (!empty($_GET['q'])) {
+    $rechercheActive = true;
+    $q = trim($_GET['q']);
+    $like = '%' . $q . '%';
+    $stmt = $pdo->prepare("SELECT * FROM track WHERE titre LIKE ? OR artiste_album LIKE ? OR genre LIKE ?");
+    $stmt->execute([$like, $like, $like]);
+    $searchResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
 
 // Récupérer les musiques
 $stmt2 = $pdo->query("SELECT * FROM track");
@@ -28,7 +39,7 @@ $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 <head>
   <meta charset="UTF-8">
   <title>Deefy</title>
-  <link rel="stylesheet" href="ressources/css/IndexStyle.css">
+  <link rel="stylesheet" href="ressources/css/IndexStyle.css?v=1.0">
 </head>
 <body>
   <!-- Barre latérale -->
@@ -89,7 +100,12 @@ $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
       <span>Deefy</span>
     </div>
 
-    <input type="text" placeholder="Rechercher quelque chose...">
+    <form class="search-bar-spotify" method="GET">
+    <input type="text" name="q" placeholder="Rechercher une piste..." value="<?= isset($_GET['q']) ? htmlspecialchars($_GET['q']) : '' ?>">
+    <button type="submit" title="Rechercher">🔍</button>
+</form>
+
+
     
     
     <?php if ($estConnecte): ?>
@@ -115,6 +131,35 @@ $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
 
   <!-- Contenu principal -->
   <main class="content">
+  <?php if ($rechercheActive): ?>
+    <h2>Résultats pour "<?= htmlspecialchars($_GET['q']) ?>"</h2>
+    <?php if (!$searchResults): ?>
+      <div>Aucune piste trouvée.</div>
+    <?php else: ?>
+    <div class="tracks">
+      <?php foreach ($searchResults as $m): ?>
+        <div class="track">
+          <?php
+            $coverPath = !empty($m['cover']) && file_exists($m['cover'])
+                ? $m['cover']
+                : 'ressources/images/piste/defaut-cover.png';
+          ?>
+          <img src="<?= htmlspecialchars($coverPath) ?>" alt="cover">
+          <div class="title"><?= htmlspecialchars($m['titre']) ?></div>
+          <div class="artist"><?= htmlspecialchars($m['artiste_album']) ?></div>
+          <form action="./Fonctionnalite/musique.php" method="get">
+            <input type="hidden" name="titre" value="<?= htmlspecialchars($m['titre']) ?>">
+            <input type="hidden" name="artiste" value="<?= htmlspecialchars($m['artiste_album']) ?>">
+            <input type="hidden" name="cover" value="<?= htmlspecialchars($m['cover']) ?>">
+            <input type="hidden" name="fichier" value="<?= htmlspecialchars($m['filename']) ?>">
+            <button type="submit">▶ Lecture</button>
+          </form>
+        </div>
+      <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
+  <?php else: ?>
+
     <h1>Bienvenue sur Deefy</h1>
     <h2>Dernière playlist écoutée</h2>
 <div>
@@ -154,6 +199,7 @@ $img = !empty($_SESSION['user']['current_playlist']['image'])
         </div>
       <?php endforeach; ?>
     </div>
+    <?php endif; ?>
   </main>
 
 
