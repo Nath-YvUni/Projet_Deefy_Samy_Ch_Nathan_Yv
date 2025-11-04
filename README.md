@@ -1,3 +1,5 @@
+Nathan YVON / Samy CHERCHARI
+
 Voici notre projet nommé Deefy :
 
 Notre projet à pour but de geré et de lire des musiques dans le site et de pourvoir les ajoutés dans une playlist avec une authentification d'utilisateur.
