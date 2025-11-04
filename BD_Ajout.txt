@@ -1,0 +1,120 @@
+Table Playlist :
+CREATE TABLE `playlist` (
+  `id` int(11) NOT NULL,
+  `nom` varchar(100) NOT NULL,
+  `image` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+INSERT INTO `playlist` (`id`, `nom`, `image`) VALUES
+(1, 'La Playlist À Samy', 'ressources/images/playlist/img_playlist.png'),
+(2, 'Eminence In Reverse', ''),
+(7, 'Ma playlist', 'ressources/images/playlist/playlist_6906939fda71e.jpg'),
+(8, 'La Kiffance', 'ressources/images/playlist/img_playlist.png'),
+(9, 'JojoPlay', 'ressources/images/playlist/playlist_69073ec536f1f.png'),
+(10, 'Dicken Titten', 'ressources/images/playlist/playlist_6907814b5f54a.jpg'),
+(11, 'Kenan_Finito', 'ressources/images/playlist/playlist_6907cb478aca0.jpg');
+
+
+
+Table Playlist2track :
+CREATE TABLE `playlist2track` (
+  `id_pl` int(11) NOT NULL,
+  `id_track` int(11) NOT NULL,
+  `no_piste_dans_liste` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+INSERT INTO `playlist2track` (`id_pl`, `id_track`, `no_piste_dans_liste`) VALUES
+(1, 1, 1),
+(1, 2, 2),
+(2, 1, 1),
+(2, 2, 3),
+(2, 3, 2),
+(7, 4, 3),
+(7, 5, 1),
+(7, 7, 2),
+(8, 8, 1),
+(9, 1, 1),
+(10, 3, 1),
+(10, 11, 2);
+ 
+Table Track :
+CREATE TABLE `track` (
+  `id` int(11) NOT NULL,
+  `titre` varchar(100) NOT NULL,
+  `genre` varchar(30) DEFAULT NULL,
+  `filename` varchar(100) DEFAULT NULL,
+  `artiste_album` varchar(30) DEFAULT NULL,
+  `titre_album` varchar(30) DEFAULT NULL,
+  `annee_album` int(4) DEFAULT NULL,
+  `auteur_podcast` varchar(100) DEFAULT NULL,
+  `date_podcast` date DEFAULT NULL,
+  `cover` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+INSERT INTO `track` (`id`, `titre`, `genre`, `filename`, `artiste_album`, `titre_album`, `annee_album`, `auteur_podcast`, `date_podcast`, `cover`) VALUES
+(1, 'Jojo\'s Bizarre Adventure - Bloody Stream', 'anime', 'ressources/audio/BLOODY_STREAM.mp3', 'Coda', 'Battle Tendency', 2013, NULL, NULL, 'ressources/images/piste/Bloody_Stream.png'),
+(2, 'Jojo\'s Bizarre Adventure - Fighting Gold', 'anime', 'ressources/audio/Fighting_Gold.mp3', 'Coda', 'Golden Wind', 2018, NULL, NULL, 'ressources/images/piste/Fighting_Gold.png'),
+(3, 'Jojo\'s Bizarre Adventure - Traitor\'s Requiem', 'anime', 'ressources/audio/Traitors_Requiem.mp3', 'Coda', 'Golden Wind', 2018, NULL, NULL, 'ressources/images/piste/Traitors_Requiem.png'),
+(4, 'Jojo\'s Bizarre Adventure - Sono Chi no Sadame', 'anime', 'ressources/audio/Sono_Chi_no_Sadame.mp3', 'Hiroaki "TOMMY" Tominaga', 'Phantom Blood', 2012, NULL, NULL, 'ressources/images/piste/Sono_Chi_no_Sadame.png'),
+(5, 'Jojo\'s Bizarre Adventure - Stand Proud', 'anime', 'ressources/audio/Stand_Proud.mp3', 'Jin Hashimoto', 'Stardust Crusaders', 2014, NULL, NULL, 'ressources/images/piste/Stand_Proud.png'),
+(6, 'Jojo\'s Bizarre Adventure - Crazy Noisy Bizarre Town', 'anime', 'ressources/audio/Crazy_Noisy_Bizarre_Town.mp3', 'THE DU', 'Diamond is Unbreakable', 2016, NULL, NULL, 'ressources/images/piste/Crazy_Noisy_Bizarre_Town.png'),
+(7, 'Jojo\'s Bizarre Adventure - Chase', 'anime', 'ressources/audio/Chase.mp3', 'batta', 'Diamond is Unbreakable', 2016, NULL, NULL, 'ressources/images/piste/Chase.png'),
+(8, 'Jojo\'s Bizarre Adventure - Stone Ocean', 'anime', 'ressources/audio/Stone_Ocean.mp3', 'Ichigo from Kishida Kyoudan & ', 'Stone Ocean', 2021, NULL, NULL, 'ressources/images/piste/Stone_Ocean.png'),
+(9, 'Jojo\'s Bizarre Adventure - Heaven\'s falling down', 'anime', 'ressources/audio/Heaven_ s_falling_down.mp3', 'Sana', 'Stone Ocean', 2022, NULL, NULL, 'ressources/images/piste/Heaven_s_falling_down.png'),
+(10, 'Jojo\'s Bizarre Adventure - Great Days', 'anime', 'ressources/audio/Great_Days.mp3', 'Karen Aoki & Daisuke Hasegawa', 'Diamond is Unbreakable', 2016, NULL, NULL, 'ressources/images/piste/Great_Days.png'),
+(11, 'Jojo\'s Bizarre Adventure - Steel Ball Run', 'anime', 'ressources/audio/Steel_Ball_Run_Op.mp3', 'Nico Bellisario & Shihori', 'Steel Ball Run', 2022, NULL, NULL, 'ressources/images/piste/Steel_Ball_Run_Op.png'),
+(12, 'Jojo\'s Bizarre Adventure - Jonathan Joestar Theme', 'anime', 'ressources/audio/Jonathan_Joestar_Theme.mp3', 'Fukutsu Mushinno Sakebi', 'Phantom Blood', 2012, NULL, NULL, 'ressources/images/piste/Jonathan_Joestar_Theme.png'),
+(13, 'Jojo\'s Bizarre Adventure - Joseph Joestar Theme', 'anime', 'ressources/audio/Joseph_Joestar_Theme.mp3', 'TOMMY, Coda & Hiroaki "Tommy"', 'Battle Tendency', 2013, NULL, NULL, 'ressources/images/piste/Joseph_Joestar_Theme.png'),
+(14, 'Jojo\'s Bizarre Adventure - Jotaro Kujo Theme', 'anime', 'ressources/audio/Jotaro_Kujo_Theme.mp3', 'Yugo Kanno', 'Stardust Crusaders', 2014, NULL, NULL, 'ressources/images/piste/Jotaro_Kujo_Theme.png'),
+(15, 'Jojo\'s Bizarre Adventure - Josuke Higashikata Theme', 'anime', 'ressources/audio/Josuke_Higashikata_Theme.mp3', 'Yugo Kanno', 'Diamond is Unbreakable', 2016, NULL, NULL, 'ressources/images/piste/Josuke_Higashikata_Theme.png'),
+(16, 'Jojo\'s Bizarre Adventure - Giorno Giovanna Theme', 'anime', 'ressources/audio/Giorno_Giovanna_Theme.mp3', 'Yugo Kanno', 'Golden Wind', 2018, NULL, NULL, 'ressources/images/piste/Giorno_Giovanna_Theme.png'),
+(17, 'Jojo\'s Bizarre Adventure - Jolyne Cujoh Theme', 'anime', 'ressources/audio/Jolyne_Cujoh_Theme.mp3', 'Yugo Kanno', 'Stone Ocean', 2021, NULL, NULL, 'ressources/images/piste/Jolyne_Cujoh_Theme.png'),
+(20, 'Zombified', 'Métal', 'ressources/audio/Zombified.mp3', 'Falling In Reverse', 'Poupular Monster', 2024, NULL, NULL, 'ressources/images/piste/Zombified.jpg'),
+(21, 'Watch The World Burn', 'Métal', 'ressources/audio/WTWB.mp3', 'Falling In Reverse', 'Popular Monster', 2024, NULL, NULL, 'ressources/images/piste/WTWB.png'),
+(22, 'Numb', 'Métal', 'ressources/audio/Numb.mp3', 'Linkin Park', 'Meteora', 2003, NULL, NULL, 'ressources/images/piste/Numb.jpg'),
+(23, 'Voices In My Head', 'Métal', 'ressources/audio/Falling_In_Reverse_-_Voices_In_My_Head.mp3', 'Falling In Revrese', 'Popular Monster', 2024, NULL, NULL, 'ressources/images/piste/Falling_In_Reverse_-_Voices_In_My_Head.png'),
+(24, 'God Is A Weapon', 'Métal', 'ressources/audio/Falling_In_Reverse_-_God_Is_A_Weapon.mp3', 'Falling In Revrese', 'God Is A Weapon', 2025, NULL, NULL, 'ressources/images/piste/Falling_In_Reverse_-_God_Is_A_Weapon.jpg'),
+(25, 'Un Monde Parfait', 'Dance', 'ressources/audio/Un_monde_parfait.mp3', 'Illona Mitrecey', 'Un Monde Parfait', 2005, NULL, NULL, 'ressources/images/piste/Un_monde_parfait.jpg'),
+(26, 'Bird', 'Pop Rock', 'ressources/audio/Birds.mp3', 'Imagine Dragons', 'Origines', 2018, NULL, NULL, 'ressources/images/piste/Birds.jpg'),
+(30, 'Ma Meilleure Ennemie', 'anime', 'ressources/audio/Ma_meilleure_ennemie.mp3', 'Arcane feat Stromae et Pomme', 'Arcane', 2024, NULL, NULL, 'ressources/images/piste/Ma_meilleure_ennemie.jpg'),
+(31, 'Houlala', 'Pop Rock', 'ressources/audio/Houlala.mp3', 'Ludwig Von 88', 'Houlala !', 1986, NULL, NULL, 'ressources/images/piste/Houlala.jpg'),
+(32, 'Bruxelles je t\'aime', 'Pop Rock', 'ressources/audio/Bruxelles_je_t_aime.mp3', 'Angèle', 'Nonante-Cinq', 2021, NULL, NULL, 'ressources/images/piste/Bruxelles_je_t_aime.jpg'),
+(33, 'Hit sales', 'Pop Rock', 'ressources/audio/Hit_sales.mp3', 'Therapie TAXI ft. Roméo Elvis', 'Hit sale', 2018, NULL, NULL, 'ressources/images/piste/Hit_sales.png'),
+(34, 'Rain', 'Métal', 'ressources/audio/Rain.mp3', 'I Prevail', 'Violent Nature', 2025, NULL, NULL, 'ressources/images/piste/Rain.jpg'),
+(35, 'Violent Nature', 'Métal', 'ressources/audio/Violent_Nature.mp3', 'I Prevail', 'Violent Nature', 2025, NULL, NULL, 'ressources/images/piste/Violent_Nature.jpg'),
+(36, 'Seul avec du monde autour', 'Rap', 'ressources/audio/Seul_avec_du_monde_autour.mp3', 'Orelsan', 'Civilisation', 2021, NULL, NULL, 'ressources/images/piste/Seul_avec_du_monde_autour.jpg'),
+(37, 'La terre est ronde', 'Rap', 'ressources/audio/La_terre_est_ronde.mp3', 'Orelsan', 'Le Chant des sirènes', 2011, NULL, NULL, 'ressources/images/piste/La_terre_est_ronde.png'),
+(38, 'Sale Pute', 'Rap', 'ressources/audio/Sale_Pute.mp3', 'Orelsan', 'Perdu d\'avance', 2009, NULL, NULL, 'ressources/images/piste/Sale_Pute.jpg'),
+(39, 'Canzoni preferite', 'Pop Rock', 'ressources/audio/Canzoni_preferite.mp3', 'Yugo Kanno', 'Golden Wind', 2018, NULL, NULL, 'ressources/images/piste/Canzoni_preferite.jpg');
+ 
+Table User :
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `email` varchar(256) NOT NULL,
+  `passwd` varchar(256) NOT NULL,
+  `role` int(11) NOT NULL DEFAULT 1,
+  `avatar` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+INSERT INTO `user` (`id`, `username`, `email`, `passwd`, `role`, `avatar`) VALUES
+(1, 'NathanYvon', 'admin@admin.iut', '$2y$10$1DUS8jluiVbo4m6V8togy.PEe9JUsyB.QuRE9rSMT6C3jxUQdIpO6', 100, 'ressources/images/avatars/avatar_6906a51a42d49.png'),
+(2, 'SamyCherchari', 'SamyLittleMac@cachemir.com', '$2y$10$aFCEtO4VZBRfNEm/xU3sLeBVyAatZUX/FTLeAQK4m84IX3QG2Vhve', 1, 'ressources/images/avatars/avatar_6901471e3ac99.png'),
+(3, 'FallingInReverse', 'fallinginreverse@tropcool.com', '$2y$10$phR3V6S0zugwvSu7xsOz8ufEvAf.4SZGd/X5jpfV9/SnPMUL/m8rO', 2, 'ressources/images/defaut-avatar.png'),
+(4, 'Main Character', 'therealmaincharacter@mail.com', '$2y$10$RhR3V6S0zugwvSu7xsOz8ufEvAf.4SZGd/X5jpfV9/SnPMUL/m8rO', 1, 'ressources/images/avatars/avatar_6907811e40932.jpg');
+
+
+Table User2playlist :
+CREATE TABLE `user2playlist` (
+  `id_user` int(11) NOT NULL,
+  `id_pl` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+INSERT INTO `user2playlist` (`id_user`, `id_pl`) VALUES
+(1, 1),
+(1, 7),
+(1, 8),
+(1, 11),
+(2, 2),
+(2, 9),
+(4, 10);
