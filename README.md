@@ -21,6 +21,7 @@ Inscription : Création de compte utilisateur avec le rôle Standard
 Authentification : Connexion avec identifiants pour accéder à son espace personnel
 
 Fonctionnalités étendues
+
 Gestion du profil : Modification du nom d'utilisateur et de l'avatar avec un upload sécurisé (contrôle du format et de la taille)
 
 Interface administrateur : Affichage adapté selon le rôle avec accès étendu aux playlists pour les admins
