@@ -7,7 +7,7 @@ require_once __DIR__ . '/../classes/Utilisateur/UtilManage.php';
 use Deefy\Utilisateur\UtilManage;
 
 if (!isset($_SESSION['user'])) {
-    header('Location: ../Fonctionnalite/Log_Sig.php');
+    header('Location: ../Fonctionnalite/log_sig.php');
     exit;
 }
 
@@ -22,17 +22,22 @@ if (isset($_POST['creer'])) {
         if (empty($nom)) {
             throw new Exception("⚠️ Le nom de la playlist ne peut pas être vide.");
         }
-
-        if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+    
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
             $allowed = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
             $filename = $_FILES['image']['name'];
             $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
-
+            
             if (!in_array($ext, $allowed)) {
                 throw new Exception("Format d'image non autorisé. Utilisez JPG, PNG, GIF ou WEBP.");
             }
-
+            
+            // ✅ CORRECTION LIGNES 36-37
             $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            if ($finfo === false) {
+                throw new Exception("Erreur lors de la vérification du type de fichier.");
+            }
+            
             $mimeType = finfo_file($finfo, $_FILES['image']['tmp_name']);
             finfo_close($finfo);
             

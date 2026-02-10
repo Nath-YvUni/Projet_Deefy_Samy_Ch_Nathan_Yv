@@ -9,11 +9,11 @@ $artiste = $_GET['artiste'] ?? null;
 $cover = $_GET['cover'] ?? '../ressources/images/defaut-cover.png';
 $fichier = $_GET['fichier'] ?? null;
 
-if ($cover && (preg_match('#\.\./#', $cover) || preg_match('#^(https?|ftp):#i', $cover))) {
+if ($cover && (preg_match('#/././#', $cover) || preg_match('#^(https?|ftp):#i', $cover))) {
     $cover = '../ressources/images/defaut-cover.png';
 }
 
-if ($fichier && (preg_match('#\.\./#', $fichier) || preg_match('#^(https?|ftp):#i', $fichier))) {
+if ($fichier && (preg_match('#/././#', $fichier) || preg_match('#^(https?|ftp):#i', $fichier))) {
     $fichier = null;
 }
 

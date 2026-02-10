@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </p>
         
         <a href="../index.php">← Retour à l'accueil</a>
-        <a href="playlist.php?id=<?= htmlspecialchars($playlistId) ?>">← Voir la playlist</a>
+        <a href="playlist.php?id=<?= (int)$playlistId ?>">← Voir la playlist</a>
     </div>
 </body>
 </html>

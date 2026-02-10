@@ -171,7 +171,7 @@ if(isset($_GET['id'])) {
             <div class="track-card">
                 <?php
                     $cover = $t['cover'];
-                    if (preg_match('#\.\./#', $cover) || preg_match('#^(https?|ftp):#i', $cover)) {
+                    if (preg_match('#/././#', $cover) || preg_match('#^(https?|ftp):#i', $cover)) {
                         $cover = 'ressources/images/default-cover.png';
                     }
                 ?>
@@ -192,7 +192,7 @@ if(isset($_GET['id'])) {
                         <button type="submit">Supprimer</button>
                     </form>
                 <?php else: ?>
-                    <form action="Ajout_Piste.php" method="POST">
+                    <form action="ajout_piste.php" method="POST">
                         <input type="hidden" name="playlist_id" value="<?= $playlist['id'] ?>">
                         <input type="hidden" name="track_id" value="<?= $t['id'] ?>">
                         <button type="submit">Ajouter</button>

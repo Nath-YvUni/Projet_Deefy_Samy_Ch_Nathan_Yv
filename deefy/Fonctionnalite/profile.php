@@ -10,7 +10,7 @@ use Deefy\Utilisateur\UtilManage;
 
 // Redirection si non connecté
 if (!isset($_SESSION['user'])) {
-    header('Location: Log_Sig.php');
+    header('Location: log_sig.php');
     exit();
 }
 
@@ -175,7 +175,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="form-section">
       <h2>Actions</h2>
       <a href="../index.php" class="btn-secondary">Retour à l'accueil</a>
-      <a href="Log_Sig.php?action=logout" class="btn-primary btn-logout">
+      <a href="log_sig.php?action=logout" class="btn-primary btn-logout">
         Se déconnecter
       </a>
     </div>
