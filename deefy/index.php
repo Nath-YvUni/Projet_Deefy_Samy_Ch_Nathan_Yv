@@ -46,11 +46,11 @@ $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
   <aside class="sidebar">
     <h2>Bibliothèque</h2>
     <?php if ($estConnecte && ($_SESSION['user']['role'] == 2 || $_SESSION['user']['role'] == 100)): ?>
-    <button class="btn" style="background-color:#4CAF50;" onclick="window.location.href='Fonctionnalite/Ajout_Piste_Artiste.php'">
+    <button class="btn" style="background-color:#4CAF50;" onclick="window.location.href='Fonctionnalite/ajout_piste_artiste.php'">
       Ajouter une de vos Musique
     </button>
   <?php endif; ?>
-    <button class="btn" onclick="window.location.href='Fonctionnalite/Ajout_Playlist.php'">+ Créer une playlist</button>
+    <button class="btn" onclick="window.location.href='Fonctionnalite/ajout_playlist.php'">+ Créer une playlist</button>
     <p>Vos playlists</p>
     <ul>
     <?php if (empty($playlists)): ?>
@@ -123,11 +123,11 @@ $musics = $stmt2->fetchAll(PDO::FETCH_ASSOC);
       <div class="dropdown-menu" id="dropdownMenu">
         <a href="Fonctionnalite/profile.php">Mon profil</a>
         <hr>
-        <a href="Fonctionnalite/Log_Sig.php?action=logout" class="logout">Se déconnecter</a>
+        <a href="Fonctionnalite/log_sig.php?action=logout" class="logout">Se déconnecter</a>
       </div>
     </div>
     <?php else: ?>
-      <a href="Fonctionnalite/Log_Sig.php" class="login">Se connecter / S'inscrire</a>
+      <a href="Fonctionnalite/log_sig.php" class="login">Se connecter / S'inscrire</a>
     <?php endif; ?>
   </header>
 
