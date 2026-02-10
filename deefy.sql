@@ -1,9 +1,16 @@
-Table Playlist :
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+CREATE DATABASE deefy CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+USE deefy;
+
 CREATE TABLE `playlist` (
   `id` int(11) NOT NULL,
   `nom` varchar(100) NOT NULL,
   `image` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `playlist` (`id`, `nom`, `image`) VALUES
 (1, 'La Playlist À Samy', 'ressources/images/playlist/img_playlist.png'),
@@ -15,13 +22,11 @@ INSERT INTO `playlist` (`id`, `nom`, `image`) VALUES
 (11, 'Kenan_Finito', 'ressources/images/playlist/playlist_6907cb478aca0.jpg');
 
 
-
-Table Playlist2track :
 CREATE TABLE `playlist2track` (
   `id_pl` int(11) NOT NULL,
   `id_track` int(11) NOT NULL,
   `no_piste_dans_liste` int(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `playlist2track` (`id_pl`, `id_track`, `no_piste_dans_liste`) VALUES
 (1, 1, 1),
@@ -35,9 +40,9 @@ INSERT INTO `playlist2track` (`id_pl`, `id_track`, `no_piste_dans_liste`) VALUES
 (8, 8, 1),
 (9, 1, 1),
 (10, 3, 1),
-(10, 11, 2);
- 
-Table Track :
+(10, 11, 2),
+(11, 1, 1);
+
 CREATE TABLE `track` (
   `id` int(11) NOT NULL,
   `titre` varchar(100) NOT NULL,
@@ -49,13 +54,13 @@ CREATE TABLE `track` (
   `auteur_podcast` varchar(100) DEFAULT NULL,
   `date_podcast` date DEFAULT NULL,
   `cover` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `track` (`id`, `titre`, `genre`, `filename`, `artiste_album`, `titre_album`, `annee_album`, `auteur_podcast`, `date_podcast`, `cover`) VALUES
 (1, 'Jojo\'s Bizarre Adventure - Bloody Stream', 'anime', 'ressources/audio/BLOODY_STREAM.mp3', 'Coda', 'Battle Tendency', 2013, NULL, NULL, 'ressources/images/piste/Bloody_Stream.png'),
 (2, 'Jojo\'s Bizarre Adventure - Fighting Gold', 'anime', 'ressources/audio/Fighting_Gold.mp3', 'Coda', 'Golden Wind', 2018, NULL, NULL, 'ressources/images/piste/Fighting_Gold.png'),
 (3, 'Jojo\'s Bizarre Adventure - Traitor\'s Requiem', 'anime', 'ressources/audio/Traitors_Requiem.mp3', 'Coda', 'Golden Wind', 2018, NULL, NULL, 'ressources/images/piste/Traitors_Requiem.png'),
-(4, 'Jojo\'s Bizarre Adventure - Sono Chi no Sadame', 'anime', 'ressources/audio/Sono_Chi_no_Sadame.mp3', 'Hiroaki "TOMMY" Tominaga', 'Phantom Blood', 2012, NULL, NULL, 'ressources/images/piste/Sono_Chi_no_Sadame.png'),
+(4, 'Jojo\'s Bizarre Adventure - Sono Chi no Sadame', 'anime', 'ressources/audio/Sono_Chi_no_Sadame.mp3', 'Hiroaki \"TOMMY\" Tominaga', 'Phantom Blood', 2012, NULL, NULL, 'ressources/images/piste/Sono_Chi_no_Sadame.png'),
 (5, 'Jojo\'s Bizarre Adventure - Stand Proud', 'anime', 'ressources/audio/Stand_Proud.mp3', 'Jin Hashimoto', 'Stardust Crusaders', 2014, NULL, NULL, 'ressources/images/piste/Stand_Proud.png'),
 (6, 'Jojo\'s Bizarre Adventure - Crazy Noisy Bizarre Town', 'anime', 'ressources/audio/Crazy_Noisy_Bizarre_Town.mp3', 'THE DU', 'Diamond is Unbreakable', 2016, NULL, NULL, 'ressources/images/piste/Crazy_Noisy_Bizarre_Town.png'),
 (7, 'Jojo\'s Bizarre Adventure - Chase', 'anime', 'ressources/audio/Chase.mp3', 'batta', 'Diamond is Unbreakable', 2016, NULL, NULL, 'ressources/images/piste/Chase.png'),
@@ -64,7 +69,7 @@ INSERT INTO `track` (`id`, `titre`, `genre`, `filename`, `artiste_album`, `titre
 (10, 'Jojo\'s Bizarre Adventure - Great Days', 'anime', 'ressources/audio/Great_Days.mp3', 'Karen Aoki & Daisuke Hasegawa', 'Diamond is Unbreakable', 2016, NULL, NULL, 'ressources/images/piste/Great_Days.png'),
 (11, 'Jojo\'s Bizarre Adventure - Steel Ball Run', 'anime', 'ressources/audio/Steel_Ball_Run_Op.mp3', 'Nico Bellisario & Shihori', 'Steel Ball Run', 2022, NULL, NULL, 'ressources/images/piste/Steel_Ball_Run_Op.png'),
 (12, 'Jojo\'s Bizarre Adventure - Jonathan Joestar Theme', 'anime', 'ressources/audio/Jonathan_Joestar_Theme.mp3', 'Fukutsu Mushinno Sakebi', 'Phantom Blood', 2012, NULL, NULL, 'ressources/images/piste/Jonathan_Joestar_Theme.png'),
-(13, 'Jojo\'s Bizarre Adventure - Joseph Joestar Theme', 'anime', 'ressources/audio/Joseph_Joestar_Theme.mp3', 'TOMMY, Coda & Hiroaki "Tommy"', 'Battle Tendency', 2013, NULL, NULL, 'ressources/images/piste/Joseph_Joestar_Theme.png'),
+(13, 'Jojo\'s Bizarre Adventure - Joseph Joestar Theme', 'anime', 'ressources/audio/Joseph_Joestar_Theme.mp3', 'TOMMY, Coda & Hiroaki \"Tommy\"', 'Battle Tendency', 2013, NULL, NULL, 'ressources/images/piste/Joseph_Joestar_Theme.png'),
 (14, 'Jojo\'s Bizarre Adventure - Jotaro Kujo Theme', 'anime', 'ressources/audio/Jotaro_Kujo_Theme.mp3', 'Yugo Kanno', 'Stardust Crusaders', 2014, NULL, NULL, 'ressources/images/piste/Jotaro_Kujo_Theme.png'),
 (15, 'Jojo\'s Bizarre Adventure - Josuke Higashikata Theme', 'anime', 'ressources/audio/Josuke_Higashikata_Theme.mp3', 'Yugo Kanno', 'Diamond is Unbreakable', 2016, NULL, NULL, 'ressources/images/piste/Josuke_Higashikata_Theme.png'),
 (16, 'Jojo\'s Bizarre Adventure - Giorno Giovanna Theme', 'anime', 'ressources/audio/Giorno_Giovanna_Theme.mp3', 'Yugo Kanno', 'Golden Wind', 2018, NULL, NULL, 'ressources/images/piste/Giorno_Giovanna_Theme.png'),
@@ -85,30 +90,14 @@ INSERT INTO `track` (`id`, `titre`, `genre`, `filename`, `artiste_album`, `titre
 (36, 'Seul avec du monde autour', 'Rap', 'ressources/audio/Seul_avec_du_monde_autour.mp3', 'Orelsan', 'Civilisation', 2021, NULL, NULL, 'ressources/images/piste/Seul_avec_du_monde_autour.jpg'),
 (37, 'La terre est ronde', 'Rap', 'ressources/audio/La_terre_est_ronde.mp3', 'Orelsan', 'Le Chant des sirènes', 2011, NULL, NULL, 'ressources/images/piste/La_terre_est_ronde.png'),
 (38, 'Sale Pute', 'Rap', 'ressources/audio/Sale_Pute.mp3', 'Orelsan', 'Perdu d\'avance', 2009, NULL, NULL, 'ressources/images/piste/Sale_Pute.jpg'),
-(39, 'Canzoni preferite', 'Pop Rock', 'ressources/audio/Canzoni_preferite.mp3', 'Yugo Kanno', 'Golden Wind', 2018, NULL, NULL, 'ressources/images/piste/Canzoni_preferite.jpg');
- 
-Table User :
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
-  `username` varchar(255) DEFAULT NULL,
-  `email` varchar(256) NOT NULL,
-  `passwd` varchar(256) NOT NULL,
-  `role` int(11) NOT NULL DEFAULT 1,
-  `avatar` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+(39, 'Canzoni preferite', 'Pop Rock', 'ressources/audio/Canzoni_preferite.mp3', 'Yugo Kanno', 'Golden Wind', 2018, NULL, NULL, 'ressources/images/piste/Canzoni_preferite.jpg'),
+(40, 'Suteki da ne (FFX Nightcore)', 'Nightcore', 'ressources/audio/Suteki_da_ne__FFX_Nightcore_.mp3', 'Final Fantasy X', 'Final Fantasy X', 2017, NULL, NULL, 'ressources/images/piste/Suteki_da_ne__FFX_Nightcore_.jpg'),
+(45, 'Aerith\'s Theme Rebirth (FF7)', 'Jeu Video', 'ressources/audio/Aerith_s_Theme_Rebirth__FF7_.mp3', 'Final Fantasy VII Rebirth', 'Final Fantasy VII Rebirth', 2023, NULL, NULL, 'ressources/images/piste/Aerith_s_Theme_Rebirth__FF7_.webp');
 
-INSERT INTO `user` (`id`, `username`, `email`, `passwd`, `role`, `avatar`) VALUES
-(1, 'NathanYvon', 'admin@admin.iut', '$2y$10$1DUS8jluiVbo4m6V8togy.PEe9JUsyB.QuRE9rSMT6C3jxUQdIpO6', 100, 'ressources/images/avatars/avatar_6906a51a42d49.png'),
-(2, 'SamyCherchari', 'SamyLittleMac@cachemir.com', '$2y$10$aFCEtO4VZBRfNEm/xU3sLeBVyAatZUX/FTLeAQK4m84IX3QG2Vhve', 1, 'ressources/images/avatars/avatar_6901471e3ac99.png'),
-(3, 'FallingInReverse', 'fallinginreverse@tropcool.com', '$2y$10$phR3V6S0zugwvSu7xsOz8ufEvAf.4SZGd/X5jpfV9/SnPMUL/m8rO', 2, 'ressources/images/defaut-avatar.png'),
-(4, 'Main Character', 'therealmaincharacter@mail.com', '$2y$10$RhR3V6S0zugwvSu7xsOz8ufEvAf.4SZGd/X5jpfV9/SnPMUL/m8rO', 1, 'ressources/images/avatars/avatar_6907811e40932.jpg');
-
-
-Table User2playlist :
 CREATE TABLE `user2playlist` (
   `id_user` int(11) NOT NULL,
   `id_pl` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO `user2playlist` (`id_user`, `id_pl`) VALUES
 (1, 1),
@@ -118,3 +107,56 @@ INSERT INTO `user2playlist` (`id_user`, `id_pl`) VALUES
 (2, 2),
 (2, 9),
 (4, 10);
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `email` varchar(256) NOT NULL,
+  `passwd` varchar(256) NOT NULL,
+  `role` int(11) NOT NULL DEFAULT 1,
+  `avatar` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `users` (`id`, `username`, `email`, `passwd`, `role`, `avatar`) VALUES
+(1, 'NathanYvonn', 'admin@admin.iut', '$2y$10$1DUS8jluiVbo4m6V8togy.PEe9JUsyB.QuRE9rSMT6C3jxUQdIpO6', 100, 'ressources/images/avatars/avatar_6906a51a42d49.png'),
+(2, 'SamyCherchari', 'SamyLittleMac@cachemir.com', '$2y$10$aFCEtO4VZBRfNEm/xU3sLeBVyAatZUX/FTLeAQK4m84IX3QG2Vhve', 1, 'ressources/images/avatars/avatar_6901471e3ac99.png'),
+(3, 'FallingInReverse', 'fallinginreverse@tropcool.com', '$2y$10$phR3V6S0zugwvSu7xsOz8ufEvAf.4SZGd/X5jpfV9/SnPMUL/m8rO', 2, 'ressources/images/defaut-avatar.png'),
+(4, 'Main Character', 'therealmaincharacter@mail.com', '$2y$10$RhR3V6S0zugwvSu7xsOz8ufEvAf.4SZGd/X5jpfV9/SnPMUL/m8rO', 1, 'ressources/images/avatars/avatar_6907811e40932.jpg');
+
+ALTER TABLE `playlist`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `playlist2track`
+  ADD PRIMARY KEY (`id_pl`,`id_track`),
+  ADD KEY `fk_p2t_track` (`id_track`);
+
+ALTER TABLE `track`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `user2playlist`
+  ADD PRIMARY KEY (`id_user`,`id_pl`),
+  ADD KEY `fk_u2p_playlist` (`id_pl`);
+
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `uniq_email` (`email`);
+
+ALTER TABLE `playlist`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+ALTER TABLE `track`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+ALTER TABLE `playlist2track`
+  ADD CONSTRAINT `fk_p2t_playlist` FOREIGN KEY (`id_pl`) REFERENCES `playlist` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_p2t_track` FOREIGN KEY (`id_track`) REFERENCES `track` (`id`) ON DELETE CASCADE;
+
+
+ALTER TABLE `user2playlist`
+  ADD CONSTRAINT `fk_u2p_playlist` FOREIGN KEY (`id_pl`) REFERENCES `playlist` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_u2p_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+COMMIT;
+
