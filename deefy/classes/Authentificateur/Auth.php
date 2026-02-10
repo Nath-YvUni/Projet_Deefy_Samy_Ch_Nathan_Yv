@@ -19,13 +19,14 @@ class Auth {
 
     /**
      * Connexion utilisateur
+     * @return array<string, mixed>
      * @throws Exception Si les identifiants sont incorrects
      */
     public function signin(string $email, string $passwd): array
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM user WHERE email = :email");
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = :email");
         $stmt->execute(['email' => $email]);
-        $user = $stmt->fetch();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$user || !password_verify($passwd, $user['passwd'])) {
             throw new Exception("Identifiants incorrects.");

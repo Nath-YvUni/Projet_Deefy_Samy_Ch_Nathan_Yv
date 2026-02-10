@@ -3,7 +3,6 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/BDD/Database.php';
-
 use Deefy\BDD\Database;
 
 // Initialisation de la base avec le fichier .ini

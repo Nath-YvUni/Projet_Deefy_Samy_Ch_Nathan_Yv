@@ -1,6 +1,5 @@
 <?php
 // classes/BDD/Database.php
-
 namespace Deefy\BDD;
 
 use PDO;
@@ -32,15 +31,21 @@ class Database
                 throw new \Exception("Aucun fichier de configuration défini.");
             }
 
-            $config = parse_ini_file(self::$configFile, true);
-
+            $config = parse_ini_file(self::$configFile);
+            
             if ($config === false) {
                 throw new \Exception("Impossible de lire le fichier de configuration : " . self::$configFile);
             }
 
-            $dsn = $config['dsn']['dsn'] ?? '';
-            $username = $config['username']['username'] ?? '';
-            $password = $config['password']['password'] ?? '';
+            // Construire le DSN à partir des valeurs du .ini
+            $driver = $config['driver'] ?? 'mysql';
+            $host = $config['host'] ?? 'localhost';
+            $database = $config['database'] ?? '';
+            $charset = $config['charset'] ?? 'utf8';
+            
+            $dsn = "{$driver}:host={$host};dbname={$database};charset={$charset}";
+            $username = $config['username'] ?? '';
+            $password = $config['password'] ?? '';
 
             try {
                 self::$instance = new PDO($dsn, $username, $password);
